@@ -13,11 +13,11 @@ export const DefaultTemplate = () => {
           <IgniteTimerLogoImg src="/img/ignite-timer-logo.svg" alt="" />
 
           <NavigationLinksContainer>
-            <Link to="/" title="Ir para a tela inicial" isActive={pathname === '/'}>
+            <Link to="/" title="Ir para a tela inicial" active={String(pathname === '/')}>
               <Timer size={30} />
             </Link>
             
-            <Link to="/history" title="Ver histórico" isActive={pathname === '/history'}>
+            <Link to="/history" title="Ver histórico" active={String(pathname === '/history')}>
               <Scroll size={30} />
             </Link>
           </NavigationLinksContainer>

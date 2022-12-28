@@ -1,13 +1,17 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const CycleForm = styled.form`
-  max-width: 41rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 42.5rem;
   width: 100%;
   margin: 4.5rem auto 0 auto;
 `
 
 export const InputsContainer = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 10px;
 
@@ -16,69 +20,37 @@ export const InputsContainer = styled.div`
   }
 `
 
-export const Label = styled.label`
-  font-size: 1.125rem;
-  font-weight: 700;
-`
-
-const Input = styled.input`
-  width: 100%;
-  font-size: 1.125rem;
-  font-weight: 700;
-  padding: 8px;
-  outline: 0;
-  color: ${({ theme }) => theme.palette.gray[400]};
-  background-color: transparent;
-  border: 0;
-  border-bottom: 2px solid ${({ theme }) => theme.palette.gray[400]};
-`
-
-export const TaskInput = styled(Input)`
-  max-width: 17rem;
-`
-
-export const MinutesAmountContainer = styled.div`
+export const CountDownDisplayContainer = styled.div`
   display: flex;
+  max-width: 40.5rem;
+  width: 100%;
   align-items: center;
-  gap: 0.5rem;
-  max-width: 4.5rem;
-  border-bottom: 2px solid ${({ theme }) => theme.palette.gray[400]};
-  padding: 8px 0;
+  gap: 1rem;
+  margin-top: 3.75rem;
 `
 
-const BaseAddOrSubtractButton = styled.button`
-  max-height: 16px;
-  border: 0;
-  background-color: transparent;
-  color: ${({ theme }) => theme.palette.gray[400]};
-  cursor: pointer;
-  border-radius: 2px;
+export const DigitCard = styled.span`
+  display: flex;
+  max-height: 12.375rem;
+  align-items: center;
+  padding: 1rem;
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
-  }
-`
-
-export const SubtractButton = styled(BaseAddOrSubtractButton)``
-
-export const AddButton = styled(BaseAddOrSubtractButton)``
-
-export const MinutesAmountInput = styled.input`
-  max-width: 1.3125rem;
-  font-size: 1.125rem;
+  font-family: 'Roboto Mono', sans-serif;
   font-weight: 700;
-  border: 0;
-  outline: 0;
-  color: ${({ theme }) => theme.palette.gray[400]};
-  background-color: transparent;
+  font-size: 10rem;
 
-  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+  background-color: ${({ theme }) => theme.palette.gray[550]};
+  border-radius: 8px;
+  user-select: none;
 `
 
-export const Span = styled.span`
-  font-size: 1.125rem;
-  font-weight: 700;
+export const Separator = styled.span`
+  display: flex;
+  margin: 0 auto;
+  gap: 1.8rem;
+  margin-top: 2rem;
+  flex-direction: column;
+  font-size: 2.2rem;
+  color: ${({ theme }) => theme.palette.green[500]};
+  user-select: none;
 `

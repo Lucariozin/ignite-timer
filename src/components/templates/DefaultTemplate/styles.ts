@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, NavLinkProps } from 'react-router-dom'
 
 export const Container = styled.div`
   display: flex;
@@ -33,16 +33,16 @@ export const NavigationLinksContainer = styled.nav`
   gap: 1.8rem;
 `
 
-interface LinkProps {
-  isActive: boolean
+interface LinkProps extends NavLinkProps {
+  active: string
 }
 
 export const Link = styled(NavLink)<LinkProps>`
-  color: ${({ isActive, theme }) => isActive ? theme.palette.green[500] : theme.palette.gray[100]};
+  color: ${({ active, theme }) => active === 'true' ? theme.palette.green[500] : theme.palette.gray[100]};
   transition: color .2s;
 
   &:hover {
-    color: ${({ theme }) => theme.palette.green[500]};
+    color: ${({ theme }) => theme.palette.green[400]};
   }
 
   &:focus-visible {
