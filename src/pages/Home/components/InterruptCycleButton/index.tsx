@@ -1,10 +1,14 @@
 import { HandPalm } from 'phosphor-react'
 
-import { Button } from '../../../../components/Button'
+import { Button } from '@components/Button'
 
-export const InterruptCycleButton = () => {
+interface InterruptCycleButtonProps {
+  interruptCurrentCycle: () => void
+}
+
+export const InterruptCycleButton = ({ interruptCurrentCycle }: InterruptCycleButtonProps) => {
   return (
-    <Button>
+    <Button type="button" variant="red" onClick={interruptCurrentCycle}>
       <HandPalm size={28} /> Interromper
     </Button>
   )

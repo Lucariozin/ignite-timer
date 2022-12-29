@@ -2,6 +2,10 @@ import styled, { css } from 'styled-components'
 
 interface ContainerProps {
   isDisabled?: boolean
+  variantColors: {
+    main: string
+    light: string
+  }
 }
 
 export const Container = styled.button<ContainerProps>`
@@ -18,13 +22,13 @@ export const Container = styled.button<ContainerProps>`
   font-weight: 700;
 
   color: ${({ theme }) => theme.palette.white};
-  background-color: ${({ theme }) => theme.palette.green[500]};
+  background-color: ${({ variantColors }) => variantColors.main};
   border: 0;
   border-radius: 8px;
   box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
 
   cursor: pointer;
-  transition: all .2s;
+  transition: filter .2s, background-color .2s;
   user-select: none;
 
   &:focus-visible {
@@ -32,7 +36,7 @@ export const Container = styled.button<ContainerProps>`
     outline: 2px solid ${({ theme }) => theme.palette.green[400]};
   }
 
-  ${({ isDisabled }) => {
+  ${({ isDisabled, variantColors }) => {
     if (isDisabled) {
       return css`
         filter: brightness(0.7);
@@ -42,7 +46,7 @@ export const Container = styled.button<ContainerProps>`
 
     return css`
       &:hover {
-        background-color: ${({ theme }) => theme.palette.green[400]};
+        background-color: ${variantColors.light};
       }
     `
   }}

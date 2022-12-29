@@ -9,6 +9,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 `
+
 export const Wrapper = styled.div`
   max-width: 70rem;
   width: 100%;
@@ -24,6 +25,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
 `
+
 export const IgniteTimerLogoImg = styled.img`
   user-select: none;
 `

@@ -1,9 +1,9 @@
-import { Minus, Plus } from "phosphor-react"
-import { UseFormRegister, UseFormSetValue } from "react-hook-form"
+import { Minus, Plus } from 'phosphor-react'
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
-import { CycleFormInputs } from "../.."
+import { CycleFormInputs } from '@pages/Home'
 
-import { AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton } from "./styles"
+import { AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton } from './styles'
 
 interface MinutesAmountContainerProps {
   minutesAmount: string

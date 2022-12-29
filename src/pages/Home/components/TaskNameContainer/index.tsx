@@ -1,8 +1,8 @@
-import { UseFormRegister } from "react-hook-form"
+import { UseFormRegister } from 'react-hook-form'
 
-import { CycleFormInputs } from "../.."
+import { CycleFormInputs } from '@pages/Home'
 
-import { Label, TaskNameInput } from "./styles"
+import { Label, TaskNameInput } from './styles'
 
 interface TaskNameContainerProps {
   register: UseFormRegister<CycleFormInputs>

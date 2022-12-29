@@ -29,6 +29,13 @@ interface Cycle {
   taskName: string
   minutesAmount: number
   startDate: Date
+  finishDate?: Date
+  interruptDate?: Date
+}
+
+interface StartNewCycleParams {
+  taskName: string
+  minutesAmount: number
 }
 
 const cycleFormZodSchema = zod.object({
@@ -55,52 +62,89 @@ export const Home = () => {
 
   const [currentCycle, setCurrentCycle] = useState<Cycle | null>()
   const [secondsPassed, setSecondsPassed] = useState(0)
+  const [currentCycleIntervalID, setCurrentCycleIntervalID] = useState(0)
 
   const minutes = Math.floor(secondsPassed / 60)
   const seconds = Math.floor(secondsPassed % 60)
 
-  const countDownMinutes = String(currentCycle ? minutes === 0 && seconds > 0 ? currentCycle.minutesAmount - 1 : currentCycle.minutesAmount - minutes : 0).padStart(2, '0')
+  const countDownMinutes = String(currentCycle && !currentCycle.finishDate && !currentCycle.interruptDate ? minutes === 0 && seconds > 0 ? currentCycle.minutesAmount - 1 : currentCycle.minutesAmount - minutes : 0).padStart(2, '0')
   const countDownSeconds = String(seconds > 0 ? 60 - seconds : 0).padStart(2, '0')
 
   console.log(countDownMinutes + ":" + countDownSeconds)
 
   const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
 
-  const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data, event) => {
-    event?.preventDefault()
-
-    if (startNewCycleButtonIsDisabled) return
+  const startNewCycle = ({ taskName, minutesAmount }: StartNewCycleParams) => {
+    const id = String(Math.floor(new Date().getTime() * Math.random()))
 
     const newCycle: Cycle = {
-      id: String(Math.floor(new Date().getTime() * Math.random())),
-      taskName: data.taskName,
-      minutesAmount: Number(data.minutesAmount),
+      id,
+      taskName,
+      minutesAmount,
       startDate: new Date(),
     }
 
     setCurrentCycle(newCycle)
   }
 
+  const finishCurrentCycle = () => {
+    setCurrentCycle((state) => {
+      if (!state) return state
+
+      return {
+        ...state,
+        finishDate: new Date(),
+      }
+    })
+
+    setSecondsPassed(0)
+
+    clearInterval(currentCycleIntervalID)
+  }
+
+  const interruptCurrentCycle = () => {
+    setCurrentCycle((state) => {
+      if (!state) return state
+
+      return {
+        ...state,
+        interruptDate: new Date(),
+      }
+    })
+
+    setSecondsPassed(0)
+
+    clearInterval(currentCycleIntervalID)
+  }
+
+  const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data, event) => {
+    event?.preventDefault()
+
+    if (startNewCycleButtonIsDisabled) return
+
+    startNewCycle({
+      taskName: data.taskName,
+      minutesAmount: Number(data.minutesAmount)
+    })
+  }
+
   useEffect(() => {
-    if (!currentCycle) return
+    if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
 
-    let intervalId = 0
-
-    intervalId = setInterval(() => {
+    const intervalId = setInterval(() => {
       const newSecondsPassed = (new Date().getTime() - currentCycle.startDate.getTime()) / 1000
       const minutesPassed = newSecondsPassed / 60
 
       if (minutesPassed > currentCycle.minutesAmount) {
-        setCurrentCycle(null)
-        setSecondsPassed(0)
-
-        clearInterval(intervalId)
+        finishCurrentCycle()
 
         return
       }
 
       setSecondsPassed(newSecondsPassed)
     }, 1000)
+
+    setCurrentCycleIntervalID(intervalId)
   }, [currentCycle])
 
   return (
@@ -124,8 +168,8 @@ export const Home = () => {
         <DigitCard>{countDownSeconds[1]}</DigitCard>
       </CountDownDisplayContainer>
 
-      {currentCycle ? (
-        <InterruptCycleButton />
+      {currentCycle && !currentCycle.interruptDate ? (
+        <InterruptCycleButton interruptCurrentCycle={interruptCurrentCycle} />
       ) : (
         <StartNewCycleButton isDisabled={startNewCycleButtonIsDisabled} />
       )}

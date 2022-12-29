@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Play } from 'phosphor-react'
 
-import { Button } from '../../../../components/Button'
+import { Button } from '@components/Button'
 
 import { DisabledMessage } from './styles'
 
@@ -26,6 +26,7 @@ export const StartNewCycleButton = ({ isDisabled = false }) => {
 
   return (
     <Button
+      variant="green"
       type="submit"
       title="Começar um novo ciclo"
       isDisabled={isDisabled}

@@ -16,6 +16,7 @@
     "react-hook-form": "^7.41.0",
     "react-router-dom": "^6.5.0",
     "styled-components": "^5.3.6",
+    "vite-tsconfig-paths": "^4.0.3",
     "zod": "^3.20.2"
   },
   "devDependencies": {
