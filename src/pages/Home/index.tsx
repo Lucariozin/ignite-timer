@@ -14,6 +14,8 @@ import {
   Separator,
 } from './styles'
 
+import { useCycle } from '@contexts/CycleContext'
+
 import { StartNewCycleButton } from './components/StartNewCycleButton'
 import { InterruptCycleButton } from './components/InterruptCycleButton'
 import { MinutesAmountContainer } from './components/MinutesAmountContainer'
@@ -53,6 +55,8 @@ const cycleFormZodSchema = zod.object({
 })
 
 export const Home = () => {
+  const { currentCycle, CycleDispatch } = useCycle()
+
   const { register, handleSubmit, watch, setValue } = useForm<CycleFormInputs>({
     resolver: zodResolver(cycleFormZodSchema),
   })
@@ -60,9 +64,9 @@ export const Home = () => {
   const taskName = watch('taskName')
   const minutesAmount = watch('minutesAmount')
 
-  const [currentCycle, setCurrentCycle] = useState<Cycle | null>()
-  const [secondsPassed, setSecondsPassed] = useState(0)
   const [currentCycleIntervalID, setCurrentCycleIntervalID] = useState(0)
+
+  const [secondsPassed, setSecondsPassed] = useState(0)
 
   const minutes = Math.floor(secondsPassed / 60)
   const seconds = Math.floor(secondsPassed % 60)
@@ -71,8 +75,6 @@ export const Home = () => {
   const countDownSeconds = String(seconds > 0 ? 60 - seconds : 0).padStart(2, '0')
 
   console.log(countDownMinutes + ":" + countDownSeconds)
-
-  const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
 
   const startNewCycle = ({ taskName, minutesAmount }: StartNewCycleParams) => {
     const id = String(Math.floor(new Date().getTime() * Math.random()))
@@ -84,17 +86,17 @@ export const Home = () => {
       startDate: new Date(),
     }
 
-    setCurrentCycle(newCycle)
+    CycleDispatch({
+      type: 'START_NEW_CYCLE',
+      payload: {
+        newCycle,
+      },
+    })
   }
 
   const finishCurrentCycle = () => {
-    setCurrentCycle((state) => {
-      if (!state) return state
-
-      return {
-        ...state,
-        finishDate: new Date(),
-      }
+    CycleDispatch({
+      type: 'FINISH_CURRENT_CYCLE',
     })
 
     setSecondsPassed(0)
@@ -103,13 +105,8 @@ export const Home = () => {
   }
 
   const interruptCurrentCycle = () => {
-    setCurrentCycle((state) => {
-      if (!state) return state
-
-      return {
-        ...state,
-        interruptDate: new Date(),
-      }
+    CycleDispatch({
+      type: 'INTERRUPT_CURRENT_CYCLE',
     })
 
     setSecondsPassed(0)
@@ -147,6 +144,9 @@ export const Home = () => {
     setCurrentCycleIntervalID(intervalId)
   }, [currentCycle])
 
+  const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
+  const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate
+
   return (
     <CycleForm onSubmit={handleSubmit(handleCycleFormSubmit)}>
       <InputsContainer>
@@ -168,7 +168,7 @@ export const Home = () => {
         <DigitCard>{countDownSeconds[1]}</DigitCard>
       </CountDownDisplayContainer>
 
-      {currentCycle && !currentCycle.interruptDate ? (
+      {interruptCycleButtonIsVisible ? (
         <InterruptCycleButton interruptCurrentCycle={interruptCurrentCycle} />
       ) : (
         <StartNewCycleButton isDisabled={startNewCycleButtonIsDisabled} />
