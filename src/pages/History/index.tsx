@@ -22,8 +22,6 @@ export const History = () => {
     return formattedDate
   }
 
-  console.log(historyList)
-
   return (
     <Container>
       <Title>Meu histórico</Title>

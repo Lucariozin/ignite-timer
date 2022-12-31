@@ -14,7 +14,11 @@ export interface Cycle {
 export interface CycleContextData {
   currentCycle: Cycle | null
   historyList: Cycle[]
+  secondsPassed: number
   CycleDispatch: Dispatch<CycleActions>
+  startNewCycle: ({ taskName, minutesAmount }: StartNewCycleParams) => void,
+  interruptCurrentCycle: () => void,
+  finishCurrentCycle: () => void,
 }
 
 export type ActionsFunctionsObj = {
@@ -23,4 +27,9 @@ export type ActionsFunctionsObj = {
 
 export interface CycleContextProviderProps {
   children: ReactNode
+}
+
+export interface StartNewCycleParams {
+  taskName: string
+  minutesAmount: number
 }

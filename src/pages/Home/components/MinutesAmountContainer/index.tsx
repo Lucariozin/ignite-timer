@@ -20,7 +20,8 @@ export const MinutesAmountContainer = ({ minutesAmount, register, setValue }: Mi
   }
 
   const handleAddMinutesAmount = () => {
-    const calculation = Number(minutesAmount) + 5
+    const calculation = !minutesAmount ? 5 : Number(minutesAmount) + 5
+
     const newMinutesAmount = String(calculation <= 60 ? calculation : 60)
 
     setValue('minutesAmount', newMinutesAmount)

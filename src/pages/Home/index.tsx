@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,33 +25,15 @@ export interface CycleFormInputs {
   minutesAmount: string
 }
 
-interface Cycle {
-  id: string
-  taskName: string
-  minutesAmount: number
-  startDate: Date
-  finishDate?: Date
-  interruptDate?: Date
-}
-
-interface StartNewCycleParams {
-  taskName: string
-  minutesAmount: number
-}
-
 export const Home = () => {
-  const { currentCycle, CycleDispatch } = useCycle()
-
   const { register, handleSubmit, watch, setValue } = useForm<CycleFormInputs>({
     resolver: zodResolver(cycleFormZodSchema),
   })
-
+  
   const taskName = watch('taskName')
   const minutesAmount = watch('minutesAmount')
 
-  const [currentCycleIntervalID, setCurrentCycleIntervalID] = useState(0)
-
-  const [secondsPassed, setSecondsPassed] = useState(0)
+  const { currentCycle, secondsPassed, startNewCycle, interruptCurrentCycle } = useCycle()
 
   const minutes = Math.floor(secondsPassed / 60)
   const seconds = Math.floor(secondsPassed % 60)
@@ -61,44 +42,6 @@ export const Home = () => {
   const countDownSeconds = String(seconds > 0 ? 60 - seconds : 0).padStart(2, '0')
 
   console.log(countDownMinutes + ":" + countDownSeconds)
-
-  const startNewCycle = ({ taskName, minutesAmount }: StartNewCycleParams) => {
-    const id = String(Math.floor(new Date().getTime() * Math.random()))
-
-    const newCycle: Cycle = {
-      id,
-      taskName,
-      minutesAmount,
-      startDate: new Date(),
-    }
-
-    CycleDispatch({
-      type: 'START_NEW_CYCLE',
-      payload: {
-        newCycle,
-      },
-    })
-  }
-
-  const finishCurrentCycle = () => {
-    CycleDispatch({
-      type: 'FINISH_CURRENT_CYCLE',
-    })
-
-    setSecondsPassed(0)
-
-    clearInterval(currentCycleIntervalID)
-  }
-
-  const interruptCurrentCycle = () => {
-    CycleDispatch({
-      type: 'INTERRUPT_CURRENT_CYCLE',
-    })
-
-    setSecondsPassed(0)
-
-    clearInterval(currentCycleIntervalID)
-  }
 
   const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data, event) => {
     event?.preventDefault()
@@ -110,25 +53,6 @@ export const Home = () => {
       minutesAmount: Number(data.minutesAmount)
     })
   }
-
-  useEffect(() => {
-    if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
-
-    const intervalId = setInterval(() => {
-      const newSecondsPassed = (new Date().getTime() - currentCycle.startDate.getTime()) / 1000
-      const minutesPassed = newSecondsPassed / 60
-
-      if (minutesPassed > currentCycle.minutesAmount) {
-        finishCurrentCycle()
-
-        return
-      }
-
-      setSecondsPassed(newSecondsPassed)
-    }, 1000)
-
-    setCurrentCycleIntervalID(intervalId)
-  }, [currentCycle])
 
   const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
   const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate

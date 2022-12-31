@@ -9,30 +9,36 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
       if (!payload?.newCycle) return state
 
       const currentCycle: Cycle = { ...payload.newCycle }
+      const secondsPassed = 0
 
       return {
         ...state,
         currentCycle,
+        secondsPassed,
       }
     },
     'FINISH_CURRENT_CYCLE': () => {
       if (!state.currentCycle) return state
 
       const currentCycle: Cycle = { ...state.currentCycle, finishDate: new Date() }
+      const secondsPassed = 0
 
       return {
         ...state,
         currentCycle,
+        secondsPassed,
       }
     },
     'INTERRUPT_CURRENT_CYCLE': () => {
       if (!state.currentCycle) return state
 
       const currentCycle: Cycle = { ...state.currentCycle, interruptDate: new Date() }
+      const secondsPassed = 0
 
       return {
         ...state,
         currentCycle,
+        secondsPassed,
       }
     },
     'ADD_CURRENT_CYCLE_TO_HISTORY_LIST': () => {
@@ -56,6 +62,16 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
       return {
         ...state,
         historyList: newHistoryList,
+      }
+    },
+    'SET_SECONDS_PASSED': () => {
+      if (!payload?.newSecondsPassed) return state
+
+      const { newSecondsPassed } = payload
+
+      return {
+        ...state,
+        secondsPassed: newSecondsPassed,
       }
     },
   }
