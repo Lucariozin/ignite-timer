@@ -131,7 +131,7 @@ export const Home = () => {
   }, [currentCycle])
 
   const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
-  const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate
+  const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate
 
   return (
     <CycleForm onSubmit={handleSubmit(handleCycleFormSubmit)}>
