@@ -5,7 +5,18 @@ import { useCycle } from '@contexts/CycleContext'
 
 import { CycleStatus } from './components/CycleStatus'
 
-import { Container, HistoryListContainer, HistoryListHeader, HistoryListScrollContainer, HistoryRow, Item, Title } from './styles'
+import {
+  Container,
+  EmptyHistoryListContainer,
+  EmptyHistoryListImg,
+  EmptyHistoryListText,
+  HistoryListContainer,
+  HistoryListHeader,
+  HistoryListScrollContainer,
+  HistoryRow,
+  Item,
+  Title,
+} from './styles'
 
 export const History = () => {
   const { historyList } = useCycle()
@@ -22,37 +33,49 @@ export const History = () => {
     return formattedDate
   }
 
+  const historyListIsEmpty = !historyList.length
+
   return (
     <Container>
-      <Title>Meu histórico</Title>
+      {historyListIsEmpty ? (
+        <EmptyHistoryListContainer>
+          <EmptyHistoryListText>Você ainda não iniciou nenhum projeto...</EmptyHistoryListText>
 
-      <HistoryListContainer>
-        <HistoryListHeader>
-          <Item>Tarefa</Item>
-          <Item>Duração</Item>
-          <Item>Início</Item>
-          <Item>Status</Item>
-        </HistoryListHeader>
+          <EmptyHistoryListImg src="/img/empty-list-image.png" alt="" />
+        </EmptyHistoryListContainer>
+      ) : (
+        <>
+          <Title>Meu histórico</Title>
 
-        <HistoryListScrollContainer>
+          <HistoryListContainer>
+            <HistoryListHeader>
+              <Item>Tarefa</Item>
+              <Item>Duração</Item>
+              <Item>Início</Item>
+              <Item>Status</Item>
+            </HistoryListHeader>
 
-          {historyList.map((cycle) => {
-            const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
-            const startDate = formatStartDate(cycle.startDate)
+            <HistoryListScrollContainer>
 
-            return (
-              <HistoryRow key={cycle.id}>
-                <Item>{cycle.taskName}</Item>
-                <Item>{minutesAmount}</Item>
-                <Item>{startDate}</Item>
+              {historyList.map((cycle) => {
+                const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
+                const startDate = formatStartDate(cycle.startDate)
 
-                <CycleStatus cycle={cycle} />
-              </HistoryRow>
-            )
-          })}
+                return (
+                  <HistoryRow key={cycle.id}>
+                    <Item>{cycle.taskName}</Item>
+                    <Item>{minutesAmount}</Item>
+                    <Item>{startDate}</Item>
 
-        </HistoryListScrollContainer>
-      </HistoryListContainer>
+                    <CycleStatus cycle={cycle} />
+                  </HistoryRow>
+                )
+              })}
+
+            </HistoryListScrollContainer>
+          </HistoryListContainer>
+        </>
+      )}
     </Container>
   )
 }

@@ -83,3 +83,22 @@ export const HistoryRow = styled.div`
     color: ${({ theme }) => theme.palette.gray[200]};
   }
 `
+
+export const EmptyHistoryListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 6rem;
+`
+
+export const EmptyHistoryListText = styled.h2`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.palette.gray[300]};
+`
+
+export const EmptyHistoryListImg = styled.img`
+  max-width: 25rem;
+  width: 100%;
+`
