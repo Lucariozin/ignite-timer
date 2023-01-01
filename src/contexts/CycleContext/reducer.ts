@@ -74,6 +74,16 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         secondsPassed: newSecondsPassed,
       }
     },
+    'UPDATE_ALL_STATE': () => {
+      if (!payload?.newState) return state
+
+      const { newState } = payload
+
+      return {
+        ...state,
+        ...newState
+      }
+    },
   }
 
   const actionFunction = actionsFunctionsObj[type]

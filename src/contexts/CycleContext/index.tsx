@@ -4,6 +4,8 @@ import { useCycleForm } from '@contexts/CycleFormContext'
 
 import { reducer } from './reducer'
 
+import { persistCycleContextStateInLocalStorage, recoverCycleContextStateFromLocalStorage } from './persistence/cycleContextState'
+
 import { Cycle, CycleContextData, CycleContextProviderProps, StartNewCycleParams } from './types'
 
 const initialState: CycleContextData = {
@@ -19,7 +21,7 @@ const initialState: CycleContextData = {
 const CycleContext = createContext<CycleContextData>(initialState)
 
 export const CycleContextProvider = ({ children }: CycleContextProviderProps) => {
-  const { reset } = useCycleForm()
+  const { reset, setValue } = useCycleForm()
 
   const [state, cycleDispatch] = useReducer(reducer, initialState)
 
@@ -116,6 +118,32 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
 
     return () => clearInterval(intervalId)
   }, [currentCycle])
+
+  useEffect(() => {
+    const newState = recoverCycleContextStateFromLocalStorage()
+
+    if (!newState) return
+
+    cycleDispatch({
+      type: 'UPDATE_ALL_STATE',
+      payload: {
+        newState,
+      },
+    })
+
+    const { currentCycle } = newState
+
+    if (!currentCycle || currentCycle.finishDate || currentCycle.interruptDate) return
+
+    setValue('taskName', currentCycle.taskName)
+    setValue('minutesAmount', String(currentCycle.minutesAmount))
+  }, [])
+
+  useEffect(() => {
+    if (!historyList.length || !currentCycle) return
+
+    persistCycleContextStateInLocalStorage(state)
+  }, [state])
 
   return (
     <CycleContext.Provider value={{ ...state, cycleDispatch, startNewCycle, interruptCurrentCycle, finishCurrentCycle }}>
