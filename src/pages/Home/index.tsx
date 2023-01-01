@@ -21,7 +21,7 @@ import { MinutesAmountContainer } from './components/MinutesAmountContainer'
 import { TaskNameContainer } from './components/TaskNameContainer'
 
 export const Home = () => {
-  const { register, handleSubmit, watch, setValue } = useCycleForm()
+  const { register, handleSubmit, watch, setValue, clearErrors, formState: { errors } } = useCycleForm()
 
   const taskName = watch('taskName')
   const minutesAmount = watch('minutesAmount')
@@ -34,8 +34,10 @@ export const Home = () => {
   const countDownMinutes = String(currentCycle && !currentCycle.finishDate && !currentCycle.interruptDate ? minutes === 0 && seconds > 0 ? currentCycle.minutesAmount - 1 : currentCycle.minutesAmount - minutes : 0).padStart(2, '0')
   const countDownSeconds = String(seconds > 0 ? 60 - seconds : 0).padStart(2, '0')
 
-  const startNewCycleButtonIsDisabled = !taskName || !minutesAmount
+  const startNewCycleButtonIsDisabled = !taskName || !minutesAmount || !!errors.minutesAmount || !!errors.taskName
   const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate
+
+  const clearMinutesAmountError = () => clearErrors('minutesAmount')
 
   const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data, event) => {
     event?.preventDefault()
@@ -51,9 +53,15 @@ export const Home = () => {
   return (
     <CycleForm onSubmit={handleSubmit(handleCycleFormSubmit)}>
       <InputsContainer>
-        <TaskNameContainer register={register} />
+        <TaskNameContainer register={register} isError={!!errors.taskName?.message} />
 
-        <MinutesAmountContainer minutesAmount={minutesAmount} register={register} setValue={setValue} />
+        <MinutesAmountContainer
+          minutesAmount={minutesAmount}
+          register={register}
+          setValue={setValue}
+          clearMinutesAmountError={clearMinutesAmountError}
+          isError={!!errors.minutesAmount?.message}
+        />
       </InputsContainer>
 
       <CountDownDisplayContainer>

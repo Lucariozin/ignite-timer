@@ -5,10 +5,11 @@ import { CycleFormInputs } from '@contexts/CycleFormContext/types'
 import { Label, TaskNameInput } from './styles'
 
 interface TaskNameContainerProps {
+  isError: boolean
   register: UseFormRegister<CycleFormInputs>
 }
 
-export const TaskNameContainer = ({ register }: TaskNameContainerProps) => {
+export const TaskNameContainer = ({ register, isError = false }: TaskNameContainerProps) => {
   return (
     <>
       <Label htmlFor="task-name">Vou trabalhar em</Label>
@@ -20,6 +21,7 @@ export const TaskNameContainer = ({ register }: TaskNameContainerProps) => {
         list="saved-projects-list"
         defaultValue=""
         {...register('taskName')}
+        isError={isError}
       />
 
       <datalist id="saved-projects-list">

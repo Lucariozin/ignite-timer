@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Label = styled.label`
   font-size: 1.125rem;
@@ -14,9 +14,20 @@ const Input = styled.input`
   color: ${({ theme }) => theme.palette.gray[400]};
   background-color: transparent;
   border: 0;
-  border-bottom: 2px solid ${({ theme }) => theme.palette.gray[400]};
 `
 
-export const TaskNameInput = styled(Input)`
+interface TaskNameInputProps {
+  isError: boolean
+}
+
+export const TaskNameInput = styled(Input)<TaskNameInputProps>`
   max-width: 18.5rem;
+  transition: border .1s;
+  border-bottom: 2px solid ${({ theme, isError }) => isError ? theme.palette.red[500] : theme.palette.gray[400]};
+
+  &:focus-visible {
+    ${({ theme, isError }) => !isError && css`
+      border-bottom: 2px solid ${theme.palette.green[400]};
+    `}
+  }
 `

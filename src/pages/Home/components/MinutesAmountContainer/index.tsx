@@ -7,16 +7,20 @@ import { AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton }
 
 interface MinutesAmountContainerProps {
   minutesAmount: string
+  isError: boolean
   register: UseFormRegister<CycleFormInputs>
   setValue: UseFormSetValue<CycleFormInputs>
+  clearMinutesAmountError: () => void
 }
 
-export const MinutesAmountContainer = ({ minutesAmount, register, setValue }: MinutesAmountContainerProps) => {
+export const MinutesAmountContainer = ({ minutesAmount, register, setValue, clearMinutesAmountError, isError = false }: MinutesAmountContainerProps) => {
   const handleSubtractMinutesAmount = () => {
     const calculation = Number(minutesAmount) - 5
     const newMinutesAmount = String(calculation >= 5 ? calculation : 5)
 
     setValue('minutesAmount', newMinutesAmount)
+
+    clearMinutesAmountError()
   }
 
   const handleAddMinutesAmount = () => {
@@ -24,13 +28,15 @@ export const MinutesAmountContainer = ({ minutesAmount, register, setValue }: Mi
     const newMinutesAmount = String(calculation <= 60 ? calculation : 60)
 
     setValue('minutesAmount', newMinutesAmount)
+
+    clearMinutesAmountError()
   }
 
   return (
     <>
       <Label htmlFor="minutes-amount">durante</Label>
 
-      <Container>
+      <Container isError={isError}>
         <SubtractButton type="button" title="Subtrair cinco minutos" onClick={handleSubtractMinutesAmount}>
           <Minus size={16} />
         </SubtractButton>

@@ -1,12 +1,21 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+interface ContainerProps {
+  isError: boolean
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   max-width: 4.5rem;
-  border-bottom: 2px solid ${({ theme }) => theme.palette.gray[400]};
+  transition: border .1s;
+  border-bottom: 2px solid ${({ theme, isError }) => isError ? theme.palette.red[500] : theme.palette.gray[400]};
   padding: 8px 0;
+
+  &:has(input:focus-visible) {
+    border-bottom: 2px solid ${({ theme, isError }) => isError ? theme.palette.red[500] : theme.palette.green[400]};
+  }
 `
 
 const BaseAddOrSubtractButton = styled.button`
