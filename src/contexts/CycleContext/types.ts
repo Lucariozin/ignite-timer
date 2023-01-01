@@ -15,7 +15,7 @@ export interface CycleContextData {
   currentCycle: Cycle | null
   historyList: Cycle[]
   secondsPassed: number
-  CycleDispatch: Dispatch<CycleActions>
+  cycleDispatch: Dispatch<CycleActions>
   startNewCycle: ({ taskName, minutesAmount }: StartNewCycleParams) => void,
   interruptCurrentCycle: () => void,
   finishCurrentCycle: () => void,

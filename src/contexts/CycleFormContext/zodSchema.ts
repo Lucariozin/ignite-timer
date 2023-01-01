@@ -1,6 +1,6 @@
 import * as zod from 'zod'
 
-export const cycleFormZodSchema = zod.object({
+export const zodSchema = zod.object({
   taskName: zod
     .string()
     .trim()

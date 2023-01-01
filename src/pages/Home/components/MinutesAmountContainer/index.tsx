@@ -1,7 +1,7 @@
-import { Minus, Plus } from 'phosphor-react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { Minus, Plus } from 'phosphor-react'
 
-import { CycleFormInputs } from '@pages/Home'
+import { CycleFormInputs } from '@contexts/CycleFormContext/types'
 
 import { AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton } from './styles'
 
@@ -21,7 +21,6 @@ export const MinutesAmountContainer = ({ minutesAmount, register, setValue }: Mi
 
   const handleAddMinutesAmount = () => {
     const calculation = !minutesAmount ? 5 : Number(minutesAmount) + 5
-
     const newMinutesAmount = String(calculation <= 60 ? calculation : 60)
 
     setValue('minutesAmount', newMinutesAmount)

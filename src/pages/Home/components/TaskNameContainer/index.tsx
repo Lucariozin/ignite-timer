@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form'
 
-import { CycleFormInputs } from '@pages/Home'
+import { CycleFormInputs } from '@contexts/CycleFormContext/types'
 
 import { Label, TaskNameInput } from './styles'
 

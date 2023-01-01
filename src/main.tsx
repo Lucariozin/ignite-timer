@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { ThemeProvider } from 'styled-components'
-import { CycleContextProvider } from './contexts/CycleContext'
+import { CycleContextProvider } from '@contexts/CycleContext'
+import { CycleFormContextProvider } from '@contexts/CycleFormContext'
 
 import { App } from './App'
 
@@ -12,9 +13,11 @@ import { theme } from './styles/theme'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CycleContextProvider>
-        <App />
-      </CycleContextProvider>
+      <CycleFormContextProvider>
+        <CycleContextProvider>
+          <App />
+        </CycleContextProvider>
+      </CycleFormContextProvider>
 
       <GlobalStyles />
     </ThemeProvider>

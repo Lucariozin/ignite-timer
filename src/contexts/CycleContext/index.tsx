@@ -1,4 +1,6 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useReducer, useState } from 'react'
+
+import { useCycleForm } from '@contexts/CycleFormContext'
 
 import { reducer } from './reducer'
 
@@ -8,7 +10,7 @@ const initialState: CycleContextData = {
   currentCycle: null,
   historyList: [],
   secondsPassed: 0,
-  CycleDispatch: () => {},
+  cycleDispatch: () => {},
   startNewCycle: (params: StartNewCycleParams) => {},
   interruptCurrentCycle: () => {},
   finishCurrentCycle: () => {},
@@ -17,7 +19,9 @@ const initialState: CycleContextData = {
 const CycleContext = createContext<CycleContextData>(initialState)
 
 export const CycleContextProvider = ({ children }: CycleContextProviderProps) => {
-  const [state, CycleDispatch] = useReducer(reducer, initialState)
+  const { reset } = useCycleForm()
+
+  const [state, cycleDispatch] = useReducer(reducer, initialState)
 
   const { currentCycle, historyList } = state
 
@@ -35,7 +39,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
       startDate: new Date(),
     }
 
-    CycleDispatch({
+    cycleDispatch({
       type: 'START_NEW_CYCLE',
       payload: {
         newCycle,
@@ -44,21 +48,25 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
   }, [currentCycleIntervalID])
 
   const interruptCurrentCycle = useCallback(() => {
-    CycleDispatch({
+    cycleDispatch({
       type: 'INTERRUPT_CURRENT_CYCLE',
     })
 
     clearInterval(currentCycleIntervalID)
+
+    reset()
   }, [currentCycleIntervalID])
 
   const finishCurrentCycle = useCallback(() => {
     if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
 
-    CycleDispatch({
+    cycleDispatch({
       type: 'FINISH_CURRENT_CYCLE',
     })
 
     clearInterval(currentCycleIntervalID)
+
+    reset()
   }, [currentCycle, currentCycleIntervalID])
 
   useEffect(() => {
@@ -67,14 +75,14 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     const currentCycleIsInTheHistoryList = historyList.find((cycle) => cycle.id === currentCycle.id)
 
     if (!currentCycleIsInTheHistoryList) {
-      CycleDispatch({
+      cycleDispatch({
         type: 'ADD_CURRENT_CYCLE_TO_HISTORY_LIST',
       })
 
       return
     }
 
-    CycleDispatch({
+    cycleDispatch({
       type: 'UPDATE_CURRENT_CYCLE_ON_HISTORY_LIST',
       payload: {
         currentCycleId: currentCycle.id,
@@ -96,7 +104,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
         return
       }
 
-      CycleDispatch({
+      cycleDispatch({
         type: 'SET_SECONDS_PASSED',
         payload: {
           newSecondsPassed,
@@ -110,7 +118,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
   }, [currentCycle])
 
   return (
-    <CycleContext.Provider value={{ ...state, CycleDispatch, startNewCycle, interruptCurrentCycle, finishCurrentCycle }}>
+    <CycleContext.Provider value={{ ...state, cycleDispatch, startNewCycle, interruptCurrentCycle, finishCurrentCycle }}>
       {children}
     </CycleContext.Provider>
   )
