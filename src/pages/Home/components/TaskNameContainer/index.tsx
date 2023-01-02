@@ -1,8 +1,9 @@
 import { UseFormRegister } from 'react-hook-form'
 
 import { CycleFormInputs } from '@contexts/CycleFormContext/types'
+import { useCycle } from '@contexts/CycleContext'
 
-import { Label, TaskNameInput } from './styles'
+import { Container, Label, TaskNameInput } from './styles'
 
 interface TaskNameContainerProps {
   isError: boolean
@@ -10,8 +11,12 @@ interface TaskNameContainerProps {
 }
 
 export const TaskNameContainer = ({ register, isError = false }: TaskNameContainerProps) => {
+  const { historyList } = useCycle()
+
+  const dataListOptions = historyList.reverse().slice(0, 5).map((cycle) => ({ id: cycle.id, taskName: cycle.taskName }))
+
   return (
-    <>
+    <Container>
       <Label htmlFor="task-name">Vou trabalhar em</Label>
 
       <TaskNameInput
@@ -25,11 +30,12 @@ export const TaskNameContainer = ({ register, isError = false }: TaskNameContain
       />
 
       <datalist id="saved-projects-list">
-        <option value="Projeto 1">Projeto 1</option>
-        <option value="Projeto 2">Projeto 2</option>
-        <option value="Projeto 3">Projeto 3</option>
-        <option value="Projeto 4">Projeto 4</option>
+
+        {dataListOptions.map((option) => (
+          <option key={option.id} value={option.taskName}>{option.taskName}</option>
+        ))}
+
       </datalist>
-    </>
+    </Container>
   )
 }

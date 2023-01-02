@@ -18,6 +18,18 @@ export const Wrapper = styled.div`
   padding: 3rem;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.palette.gray[600]};
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    max-height: 100%;
+    border-radius: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    padding: 3rem 2rem;
+  }
 `
 
 export const Header = styled.header`

@@ -1,10 +1,16 @@
 import styled from 'styled-components'
 
-interface ContainerProps {
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+
+interface WrapperProps {
   isError: boolean
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   align-items: center;
   gap: 0.5rem;

@@ -3,13 +3,14 @@ import ptBR from 'date-fns/locale/pt-BR'
 
 import { useCycle } from '@contexts/CycleContext'
 
-import { CycleStatus } from './components/CycleStatus'
+import { CycleStatus } from '@components/CycleStatus'
 
 import {
   Container,
   EmptyHistoryListContainer,
   EmptyHistoryListImg,
   EmptyHistoryListText,
+  HistoryListSideScrollContainer,
   HistoryListContainer,
   HistoryListHeader,
   HistoryListScrollContainer,
@@ -47,33 +48,35 @@ export const History = () => {
         <>
           <Title>Meu histórico</Title>
 
-          <HistoryListContainer>
-            <HistoryListHeader>
-              <Item>Tarefa</Item>
-              <Item>Duração</Item>
-              <Item>Início</Item>
-              <Item>Status</Item>
-            </HistoryListHeader>
+          <HistoryListSideScrollContainer>
+            <HistoryListContainer>
+              <HistoryListHeader>
+                <Item>Tarefa</Item>
+                <Item>Duração</Item>
+                <Item>Início</Item>
+                <Item>Status</Item>
+              </HistoryListHeader>
 
-            <HistoryListScrollContainer>
+              <HistoryListScrollContainer>
 
-              {historyList.map((cycle) => {
-                const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
-                const startDate = formatStartDate(cycle.startDate)
+                {historyList.map((cycle) => {
+                  const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
+                  const startDate = formatStartDate(cycle.startDate)
 
-                return (
-                  <HistoryRow key={cycle.id}>
-                    <Item>{cycle.taskName}</Item>
-                    <Item>{minutesAmount}</Item>
-                    <Item>{startDate}</Item>
+                  return (
+                    <HistoryRow key={cycle.id}>
+                      <Item>{cycle.taskName}</Item>
+                      <Item>{minutesAmount}</Item>
+                      <Item>{startDate}</Item>
 
-                    <CycleStatus cycle={cycle} />
-                  </HistoryRow>
-                )
-              })}
+                      <CycleStatus cycle={cycle} />
+                    </HistoryRow>
+                  )
+                })}
 
-            </HistoryListScrollContainer>
-          </HistoryListContainer>
+              </HistoryListScrollContainer>
+            </HistoryListContainer>
+          </HistoryListSideScrollContainer>
         </>
       )}
     </Container>

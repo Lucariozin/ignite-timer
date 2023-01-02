@@ -3,7 +3,7 @@ import { Minus, Plus } from 'phosphor-react'
 
 import { CycleFormInputs } from '@contexts/CycleFormContext/types'
 
-import { AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton } from './styles'
+import { Wrapper, AddButton, Container, Label, MinutesAmountInput, Span, SubtractButton } from './styles'
 
 interface MinutesAmountContainerProps {
   minutesAmount: string
@@ -33,10 +33,10 @@ export const MinutesAmountContainer = ({ minutesAmount, register, setValue, clea
   }
 
   return (
-    <>
+    <Container>
       <Label htmlFor="minutes-amount">durante</Label>
 
-      <Container isError={isError}>
+      <Wrapper isError={isError}>
         <SubtractButton type="button" title="Subtrair cinco minutos" onClick={handleSubtractMinutesAmount}>
           <Minus size={16} />
         </SubtractButton>
@@ -52,9 +52,9 @@ export const MinutesAmountContainer = ({ minutesAmount, register, setValue, clea
         <AddButton type="button" title="Somar cinco minutos" onClick={handleAddMinutesAmount}>
           <Plus size={16} />
         </AddButton>
-      </Container>
+      </Wrapper>
 
       <Span>minutos.</Span>
-    </>
+    </Container>
   )
 }

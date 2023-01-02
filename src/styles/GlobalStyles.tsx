@@ -7,6 +7,16 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    ${({ theme }) => theme.breakpoints.down('md')} {
+      font-size: 90%;
+    }
+
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+      font-size: 80%;
+    }
+  }
+
   body, button, input, label, textarea {
     font-family: 'Roboto', sans-serif;
   }

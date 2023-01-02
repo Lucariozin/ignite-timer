@@ -1,3 +1,11 @@
+type Sizes = 'lg' | 'md' | 'sm'
+
+const sizesObj: { [K in Sizes]: number } = {
+  lg: 1200,
+  md: 900,
+  sm: 600,
+}
+
 export const theme = {
   palette: {
     white: '#FFFFFF',
@@ -24,6 +32,19 @@ export const theme = {
     },
     orange: {
       200: '#FBA94C',
+    },
+  },
+  breakpoints: {
+    sizes: sizesObj,
+    down: (size: Sizes | number) => {
+      const sizeNumber = typeof size === 'number' ? size : sizesObj[size]
+
+      return `@media (max-width: ${sizeNumber}px)`
+    },
+    up: (size: Sizes | number) => {
+      const sizeNumber = typeof size === 'number' ? size : sizesObj[size]
+
+      return `@media (min-width: ${sizeNumber}px)`
     },
   },
 }

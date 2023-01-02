@@ -1,4 +1,4 @@
-import { CycleContextData } from '../types'
+import { Cycle, CycleContextData } from '../types'
 
 export const localStorageStateID = 'ignite-timer:state:1'
 
@@ -7,6 +7,13 @@ export const persistCycleContextStateInLocalStorage = (state: CycleContextData) 
 
   localStorage.setItem(localStorageStateID, stateToJSON)
 }
+
+const formatCycle = (cycle: Cycle) => ({
+  ...cycle,
+  startDate: new Date(cycle.startDate),
+  finishDate: cycle.finishDate ? new Date(cycle.finishDate) : undefined,
+  interruptDate: cycle.interruptDate ? new Date(cycle.interruptDate) : undefined,
+})
 
 export const recoverCycleContextStateFromLocalStorage = (): CycleContextData | null => {
   const stateFromLocalStorage = localStorage.getItem(localStorageStateID)
@@ -17,21 +24,9 @@ export const recoverCycleContextStateFromLocalStorage = (): CycleContextData | n
 
   if (!parsedState.currentCycle) return null
 
-  const formattedCurrentCycle: CycleContextData['currentCycle'] = {
-    ...parsedState.currentCycle,
-    startDate: new Date(parsedState.currentCycle.startDate),
-    finishDate: parsedState.currentCycle.finishDate ? new Date(parsedState.currentCycle.finishDate) : undefined,
-    interruptDate: parsedState.currentCycle.interruptDate ? new Date(parsedState.currentCycle.interruptDate) : undefined,
-  }
+  const formattedCurrentCycle: Cycle = formatCycle(parsedState.currentCycle)
 
-  const formattedHistoryList: CycleContextData['historyList'] = parsedState.historyList.map((cycle) => ({
-    id: cycle.id,
-    minutesAmount: cycle.minutesAmount,
-    taskName: cycle.taskName,
-    startDate: new Date(cycle.startDate),
-    finishDate: cycle.finishDate ? new Date(cycle.finishDate) : undefined,
-    interruptDate: cycle.interruptDate ? new Date(cycle.interruptDate) : undefined,
-  }))
+  const formattedHistoryList: CycleContextData['historyList'] = parsedState.historyList.map((cycle) => formatCycle(cycle))
 
   return {
     ...parsedState,

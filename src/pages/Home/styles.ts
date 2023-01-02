@@ -18,6 +18,11 @@ export const InputsContainer = styled.div`
   & label:nth-child(3) {
     font-weight: 500;
   }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const CountDownDisplayContainer = styled.div`
@@ -27,6 +32,18 @@ export const CountDownDisplayContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 3.75rem;
+
+  ${({ theme }) => theme.breakpoints.down(640)} {
+    max-width: 34rem;
+  }
+
+  ${({ theme }) => theme.breakpoints.down(500)} {
+    max-width: 28rem;
+  }
+
+  ${({ theme }) => theme.breakpoints.down(410)} {
+    max-width: 23rem;
+  }
 `
 
 export const DigitCard = styled.span`
@@ -42,6 +59,21 @@ export const DigitCard = styled.span`
   background-color: ${({ theme }) => theme.palette.gray[550]};
   border-radius: 8px;
   user-select: none;
+
+  ${({ theme }) => theme.breakpoints.down(640)} {
+    font-size: 8rem;
+    max-height: 10.375rem;
+  }
+
+  ${({ theme }) => theme.breakpoints.down(500)} {
+    font-size: 6rem;
+    max-height: 8.375rem;
+  }
+
+  ${({ theme }) => theme.breakpoints.down(410)} {
+    font-size: 4rem;
+    max-height: 6.375rem;
+  }
 `
 
 export const Separator = styled.span`
@@ -53,4 +85,14 @@ export const Separator = styled.span`
   font-size: 2.2rem;
   color: ${({ theme }) => theme.palette.green[500]};
   user-select: none;
+
+  ${({ theme }) => theme.breakpoints.down(640)} {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+  }
+
+  ${({ theme }) => theme.breakpoints.down(410)} {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
 `

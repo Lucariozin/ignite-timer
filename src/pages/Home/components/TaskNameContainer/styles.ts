@@ -1,8 +1,21 @@
 import styled, { css } from 'styled-components'
 
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+`
+
 export const Label = styled.label`
   font-size: 1.125rem;
   font-weight: 700;
+  white-space: nowrap;
 `
 
 const Input = styled.input`
