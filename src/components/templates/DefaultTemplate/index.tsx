@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { Scroll, Timer } from 'phosphor-react'
 
-import { Container, Header, IgniteTimerLogoImg, Wrapper, NavigationLinksContainer, Link } from './styles'
+import { Container, Header, IgniteTimerLogoImg, Wrapper, NavigationLinksContainer, Link, TemplateContentContainer } from './styles'
 
 export const DefaultTemplate = () => {
   const { pathname } = useLocation()
@@ -23,7 +23,9 @@ export const DefaultTemplate = () => {
           </NavigationLinksContainer>
         </Header>
 
-        <Outlet />
+        <TemplateContentContainer>
+          <Outlet />
+        </TemplateContentContainer>
       </Wrapper>
     </Container>
   )

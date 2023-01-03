@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
+  width: 100%;
   margin: 0 3rem 0 3.375rem;
 
   ${({ theme }) => theme.breakpoints.down('md')} {

@@ -66,3 +66,11 @@ export const Link = styled(NavLink)<LinkProps>`
     outline: 2px solid ${({ theme }) => theme.palette.green[400]};
   }
 `
+
+export const TemplateContentContainer = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2rem;
+`

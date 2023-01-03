@@ -6,7 +6,6 @@ export const CycleForm = styled.form`
   align-items: center;
   max-width: 42.5rem;
   width: 100%;
-  margin: 4.5rem auto 0 auto;
 `
 
 export const InputsContainer = styled.div`
@@ -32,25 +31,15 @@ export const CountDownDisplayContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 3.75rem;
-
-  ${({ theme }) => theme.breakpoints.down(640)} {
-    max-width: 34rem;
-  }
-
-  ${({ theme }) => theme.breakpoints.down(500)} {
-    max-width: 28rem;
-  }
-
-  ${({ theme }) => theme.breakpoints.down(410)} {
-    max-width: 23rem;
-  }
 `
 
 export const DigitCard = styled.span`
   display: flex;
+  max-width: 8rem;
+  width: 100%;
   max-height: 12.375rem;
   align-items: center;
-  padding: 1rem;
+  justify-content: center;
 
   font-family: 'Roboto Mono', sans-serif;
   font-weight: 700;
@@ -60,19 +49,16 @@ export const DigitCard = styled.span`
   border-radius: 8px;
   user-select: none;
 
-  ${({ theme }) => theme.breakpoints.down(640)} {
+  ${({ theme }) => theme.breakpoints.down(520)} {
     font-size: 8rem;
-    max-height: 10.375rem;
   }
 
-  ${({ theme }) => theme.breakpoints.down(500)} {
+  ${({ theme }) => theme.breakpoints.down(450)} {
     font-size: 6rem;
-    max-height: 8.375rem;
   }
 
-  ${({ theme }) => theme.breakpoints.down(410)} {
-    font-size: 4rem;
-    max-height: 6.375rem;
+  ${({ theme }) => theme.breakpoints.down(400)} {
+    font-size: 5rem;
   }
 `
 
@@ -86,13 +72,13 @@ export const Separator = styled.span`
   color: ${({ theme }) => theme.palette.green[500]};
   user-select: none;
 
-  ${({ theme }) => theme.breakpoints.down(640)} {
+  ${({ theme }) => theme.breakpoints.down(450)} {
     margin-top: 1rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
-  ${({ theme }) => theme.breakpoints.down(410)} {
+  ${({ theme }) => theme.breakpoints.down(400)} {
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 `
