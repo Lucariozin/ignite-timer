@@ -4,7 +4,7 @@
 
 - Projeto desenvolvido na trilha de ReactJS do Ignite da Rocketseat.
 
-<div style="display: flex">
-  <img src="./public/readme-images/home-task-initialized.png" />
-  <img src="./public/readme-images/history.png" />
+<div style="display: flex; width: 100%;">
+  <img style="display: block" src="./public/readme-images/home-task-initialized.png" />
+  <img style="display: block" src="./public/readme-images/history.png" />
 </div>
