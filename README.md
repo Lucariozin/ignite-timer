@@ -5,6 +5,6 @@
 - Projeto desenvolvido na trilha de ReactJS do Ignite da Rocketseat.
 
 <div>
-  <img width="502" src="./public/readme-images/home-task-initialized.png" />
-  <img width="502" src="./public/readme-images/history.png" />
+  <img width="400" src="./public/readme-images/home-task-initialized.png" />
+  <img width="400" src="./public/readme-images/history.png" />
 </div>
