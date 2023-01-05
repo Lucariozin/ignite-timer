@@ -47,6 +47,6 @@ export const theme = {
       return `@media (min-width: ${sizeNumber}px)`
     },
   },
-}
+} as const
 
 export type CustomTheme = typeof theme

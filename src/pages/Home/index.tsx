@@ -2,14 +2,6 @@ import { SubmitHandler } from 'react-hook-form'
 
 import { Circle } from 'phosphor-react'
 
-import {
-  CycleForm,
-  InputsContainer,
-  CountDownDisplayContainer,
-  DigitCard,
-  Separator,
-} from './styles'
-
 import { useCycleForm } from '@contexts/CycleFormContext'
 import { CycleFormInputs } from '@contexts/CycleFormContext/types'
 
@@ -19,6 +11,14 @@ import { StartNewCycleButton } from './components/StartNewCycleButton'
 import { InterruptCycleButton } from './components/InterruptCycleButton'
 import { MinutesAmountContainer } from './components/MinutesAmountContainer'
 import { TaskNameContainer } from './components/TaskNameContainer'
+
+import {
+  CycleForm,
+  InputsContainer,
+  CountDownDisplayContainer,
+  DigitCard,
+  Separator,
+} from './styles'
 
 export const Home = () => {
   const { register, handleSubmit, watch, setValue, clearErrors, formState: { errors } } = useCycleForm()
@@ -39,9 +39,7 @@ export const Home = () => {
 
   const clearMinutesAmountError = () => clearErrors('minutesAmount')
 
-  const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data, event) => {
-    event?.preventDefault()
-
+  const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data) => {
     if (startNewCycleButtonIsDisabled) return
 
     startNewCycle({
