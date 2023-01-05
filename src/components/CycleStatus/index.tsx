@@ -24,7 +24,7 @@ export const CycleStatus = ({ cycle }: CycleStatusProps) => {
 
   return (
     <Container>
-      <StatusBall status={currentStatus} />
+      <StatusBall status={currentStatus} data-testid="status-ball" />
 
       {currentStatusText}
     </Container>

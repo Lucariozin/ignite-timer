@@ -1,17 +1,12 @@
-import { render } from '@testing-library/react'
+import { customRender } from '@tests/customRender'
 
-import { ThemeProvider } from 'styled-components'
 import { theme } from '@styles/theme'
 
 import { Button } from '.'
 
 describe('<Button />', () => {
   it('should render <Button /> applying the "green" variant by default.', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={theme}>
-        <Button>Random text</Button>
-      </ThemeProvider>
-    )
+    const { getByText } = customRender(<Button>Random text</Button>)
 
     const button = getByText('Random text')
 
@@ -22,11 +17,7 @@ describe('<Button />', () => {
   })
 
   it('should render <Button /> with the "red" variant.', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={theme}>
-        <Button variant="red">Random text</Button>
-      </ThemeProvider>
-    )
+    const { getByText } = customRender(<Button variant="red">Random text</Button>)
 
     const button = getByText('Random text')
 
