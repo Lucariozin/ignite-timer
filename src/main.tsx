@@ -14,11 +14,13 @@ import { App } from './App'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CycleFormContextProvider>
-        <CycleContextProvider>
+      <CycleContextProvider>
+        <CycleFormContextProvider>
+
           <App />
-        </CycleContextProvider>
-      </CycleFormContextProvider>
+
+        </CycleFormContextProvider>
+      </CycleContextProvider>
 
       <GlobalStyles />
     </ThemeProvider>
