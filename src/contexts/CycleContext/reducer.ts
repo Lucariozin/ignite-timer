@@ -17,6 +17,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         secondsPassed,
       }
     },
+
     'FINISH_CURRENT_CYCLE': () => {
       if (!state.currentCycle) return state
 
@@ -29,6 +30,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         secondsPassed,
       }
     },
+
     'INTERRUPT_CURRENT_CYCLE': () => {
       if (!state.currentCycle) return state
 
@@ -41,6 +43,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         secondsPassed,
       }
     },
+
     'ADD_CURRENT_CYCLE_TO_HISTORY_LIST': () => {
       if (!state.currentCycle) return state
 
@@ -52,6 +55,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         historyList,
       }
     },
+
     'UPDATE_CURRENT_CYCLE_ON_HISTORY_LIST': () => {
       if (!state.currentCycle || !payload?.currentCycleId || !payload.newCycleData) return state
 
@@ -64,6 +68,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         historyList: newHistoryList,
       }
     },
+
     'SET_SECONDS_PASSED': () => {
       if (!payload?.newSecondsPassed) return state
 
@@ -74,6 +79,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
         secondsPassed: newSecondsPassed,
       }
     },
+
     'UPDATE_ALL_STATE': () => {
       if (!payload?.newState) return state
 
@@ -88,7 +94,9 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
 
   const actionFunction = actionsFunctionsObj[type]
 
-  if (actionFunction) return actionFunction()
+  if (!actionFunction) return state
 
-  return state
+  const newState = actionFunction()
+
+  return newState
 }

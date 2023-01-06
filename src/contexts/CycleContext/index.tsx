@@ -145,8 +145,16 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     persistCycleContextStateInLocalStorage(state)
   }, [state])
 
+  const value: CycleContextData = {
+    ...state,
+    cycleDispatch,
+    startNewCycle,
+    interruptCurrentCycle,
+    finishCurrentCycle,
+  }
+
   return (
-    <CycleContext.Provider value={{ ...state, cycleDispatch, startNewCycle, interruptCurrentCycle, finishCurrentCycle }}>
+    <CycleContext.Provider value={value}>
       {children}
     </CycleContext.Provider>
   )
