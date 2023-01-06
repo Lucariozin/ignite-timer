@@ -47,7 +47,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
         newCycle,
       },
     })
-  }, [currentCycleIntervalID])
+  }, [currentCycleIntervalID, cycleDispatch])
 
   const interruptCurrentCycle = useCallback(() => {
     cycleDispatch({
@@ -57,7 +57,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     clearInterval(currentCycleIntervalID)
 
     reset()
-  }, [currentCycleIntervalID])
+  }, [currentCycleIntervalID, cycleDispatch, reset])
 
   const finishCurrentCycle = useCallback(() => {
     if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
@@ -69,7 +69,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     clearInterval(currentCycleIntervalID)
 
     reset()
-  }, [currentCycle, currentCycleIntervalID])
+  }, [currentCycle, currentCycleIntervalID, cycleDispatch, reset])
 
   useEffect(() => {
     if (!currentCycle) return
@@ -98,7 +98,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
 
     const intervalId = setInterval(() => {
       const newSecondsPassed = (new Date().getTime() - currentCycle.startDate.getTime()) / 1000
-      const minutesPassed = newSecondsPassed / 60
+      const minutesPassed = Math.floor(newSecondsPassed / 60)
 
       if (minutesPassed > currentCycle.minutesAmount) {
         finishCurrentCycle()

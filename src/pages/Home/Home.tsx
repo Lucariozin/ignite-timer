@@ -37,6 +37,8 @@ export const Home = () => {
   const startNewCycleButtonIsDisabled = !taskName || !minutesAmount || !!errors.minutesAmount || !!errors.taskName
   const interruptCycleButtonIsVisible = currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate
 
+  document.title = interruptCycleButtonIsVisible ? `${countDownMinutes}:${countDownSeconds}` : 'Ignite Timer'
+
   const clearMinutesAmountError = () => clearErrors('minutesAmount')
 
   const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data) => {
