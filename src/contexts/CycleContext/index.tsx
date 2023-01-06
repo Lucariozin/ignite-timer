@@ -29,8 +29,6 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
 
   const [currentCycleIntervalID, setCurrentCycleIntervalID] = useState<NodeJS.Timer>()
 
-  console.log('currentCycleIntervalID', currentCycleIntervalID)
-
   const startNewCycle = useCallback(({ taskName, minutesAmount }: StartNewCycleParams) => {
     clearInterval(currentCycleIntervalID)
 
