@@ -12,6 +12,8 @@ interface HistoryListProps {
 }
 
 export const HistoryList = ({ historyList }: HistoryListProps) => {
+  if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
+
   const formatMinutesAmount = (minutesAmount: number) => {
     const formattedMinutesAmount = minutesAmount === 1 ? `${minutesAmount} minuto` : `${minutesAmount} minutos`
 
@@ -40,7 +42,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
           const startDate = formatStartDate(cycle.startDate)
 
           return (
-            <HistoryRow key={cycle.id}>
+            <HistoryRow key={cycle.id} data-testid="history-row">
               <Item>{cycle.taskName}</Item>
               <Item>{minutesAmount}</Item>
               <Item>{startDate}</Item>
