@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { Status } from '.'
+import { Status } from './CycleStatus'
 
 export const Container = styled.div`
   display: flex;
