@@ -3,7 +3,7 @@ import { Cycle, CycleContextData } from '../types'
 export const localStorageStateID = 'ignite-timer:state:1'
 
 export const persistCycleContextStateInLocalStorage = (state: CycleContextData) => {
-  const historyListOrderedByStartDate = state.historyList.sort((a, b) => a.startDate.getTime() + b.startDate.getTime())
+  const historyListOrderedByStartDate = state.historyList.sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
 
   const stateToJSON = JSON.stringify({ ...state, historyList: historyListOrderedByStartDate })
 
@@ -29,7 +29,7 @@ export const recoverCycleContextStateFromLocalStorage = (): CycleContextData | n
   const formattedCurrentCycle: Cycle = formatCycle(parsedState.currentCycle)
   const formattedHistoryList: CycleContextData['historyList'] = parsedState.historyList.map((cycle) => formatCycle(cycle))
 
-  const historyListOrderedByStartDate = formattedHistoryList.sort((a, b) => a.startDate.getTime() + b.startDate.getTime())
+  const historyListOrderedByStartDate = formattedHistoryList.sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
 
   return {
     ...parsedState,
