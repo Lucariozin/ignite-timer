@@ -7,7 +7,7 @@ import { CycleFormContextProvider } from '@contexts/CycleFormContext'
 
 import { App } from './App'
 
-import { GlobalStyles } from './styles/GlobalStyles'
+import { GlobalStyles } from './styles/global'
 import { theme } from './styles/theme'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
