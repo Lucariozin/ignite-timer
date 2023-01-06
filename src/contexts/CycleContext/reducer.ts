@@ -86,8 +86,7 @@ export const reducer = (state: CycleContextData, action: CycleActions): CycleCon
       const { newState } = payload
 
       return {
-        ...state,
-        ...newState
+        ...newState,
       }
     },
   }
