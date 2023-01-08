@@ -21,7 +21,7 @@ import {
 } from './Home.styles'
 
 export const Home = () => {
-  const { register, handleSubmit, watch, reset, setValue, clearErrors, formState: { errors } } = useCycleForm()
+  const { register, handleSubmit, watch, setValue, clearErrors, formState: { errors } } = useCycleForm()
 
   const taskName = watch('taskName')
   const minutesAmount = watch('minutesAmount')
@@ -41,12 +41,6 @@ export const Home = () => {
 
   const clearMinutesAmountError = () => clearErrors('minutesAmount')
 
-  const handleInterruptCurrentCycle = () => {
-    interruptCurrentCycle()
-
-    reset()
-  }
-
   const handleCycleFormSubmit: SubmitHandler<CycleFormInputs> = (data) => {
     if (startNewCycleButtonIsDisabled) return
 
@@ -54,8 +48,6 @@ export const Home = () => {
       taskName: data.taskName,
       minutesAmount: Number(data.minutesAmount)
     })
-
-    reset()
   }
 
   return (
@@ -86,7 +78,7 @@ export const Home = () => {
       </CountDownDisplayContainer>
 
       {interruptCycleButtonIsVisible ? (
-        <InterruptCycleButton interruptCurrentCycle={handleInterruptCurrentCycle} />
+        <InterruptCycleButton interruptCurrentCycle={interruptCurrentCycle} />
       ) : (
         <StartNewCycleButton isDisabled={startNewCycleButtonIsDisabled} />
       )}
