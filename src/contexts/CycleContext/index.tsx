@@ -124,31 +124,31 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     return () => clearInterval(intervalId)
   }, [currentCycle, cycleDispatch])
 
-  // useEffect(() => {
-  //   const newState = recoverCycleContextStateFromLocalStorage()
+  useEffect(() => {
+    const newState = recoverCycleContextStateFromLocalStorage()
 
-  //   if (!newState) return
+    if (!newState) return
 
-  //   cycleDispatch({
-  //     type: 'UPDATE_ALL_STATE',
-  //     payload: {
-  //       newState,
-  //     },
-  //   })
+    cycleDispatch({
+      type: 'UPDATE_ALL_STATE',
+      payload: {
+        newState,
+      },
+    })
 
-  //   const { currentCycle } = newState
+    const { currentCycle } = newState
 
-  //   if (currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate) {
-  //     setValue('taskName', currentCycle.taskName)
-  //     setValue('minutesAmount', String(currentCycle.minutesAmount))
-  //   }
-  // }, [setValue, cycleDispatch])
+    if (currentCycle && !currentCycle.interruptDate && !currentCycle.finishDate) {
+      setValue('taskName', currentCycle.taskName)
+      setValue('minutesAmount', String(currentCycle.minutesAmount))
+    }
+  }, [setValue, cycleDispatch])
 
-  // useEffect(() => {
-  //   if (!historyList.length || !currentCycle) return
+  useEffect(() => {
+    if (!historyList.length || !currentCycle) return
 
-  //   persistCycleContextStateInLocalStorage(state)
-  // }, [state])
+    persistCycleContextStateInLocalStorage(state)
+  }, [state])
 
   const value: CycleContextData = {
     ...state,
