@@ -6,6 +6,7 @@ import { Cycle } from '@contexts/CycleContext/types'
 import { CycleStatus } from '@components/CycleStatus'
 
 import { HistoryListContainer, HistoryListHeader, HistoryListScrollContainer, HistoryRow, Item } from './HistoryList.styles'
+import { useState } from 'react'
 
 interface HistoryListProps {
   historyList: Cycle[]
@@ -14,7 +15,7 @@ interface HistoryListProps {
 export const HistoryList = ({ historyList }: HistoryListProps) => {
   // if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
 
-  const newHistoryList: Cycle[] = [
+  const [newHistoryList, setNewHistoryList] = useState([
     {
       id: '1',
       minutesAmount: 5,
@@ -38,7 +39,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
       finishDate: undefined,
       interruptDate: new Date(),
     },
-  ]
+  ])
 
   const formatMinutesAmount = (minutesAmount: number) => {
     const formattedMinutesAmount = minutesAmount === 1 ? `${minutesAmount} minuto` : `${minutesAmount} minutos`
