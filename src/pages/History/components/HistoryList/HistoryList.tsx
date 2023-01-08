@@ -12,7 +12,33 @@ interface HistoryListProps {
 }
 
 export const HistoryList = ({ historyList }: HistoryListProps) => {
-  if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
+  // if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
+
+  const newHistoryList: Cycle[] = [
+    {
+      id: '1',
+      minutesAmount: 5,
+      startDate: new Date(),
+      taskName: 'Projeto 1',
+      finishDate: undefined,
+      interruptDate: undefined,
+    },
+    {
+      id: '2',
+      minutesAmount: 10,
+      startDate: new Date(new Date().getTime() - 1000),
+      taskName: 'Projeto 2',
+      finishDate: new Date(),
+      interruptDate: undefined,
+    },{
+      id: '3',
+      minutesAmount: 30,
+      startDate: new Date(new Date().getTime() - 4000),
+      taskName: 'Projeto 3',
+      finishDate: undefined,
+      interruptDate: new Date(),
+    },
+  ]
 
   const formatMinutesAmount = (minutesAmount: number) => {
     const formattedMinutesAmount = minutesAmount === 1 ? `${minutesAmount} minuto` : `${minutesAmount} minutos`
@@ -37,7 +63,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
 
       <HistoryListScrollContainer>
 
-        {historyList.map((cycle) => {
+        {newHistoryList.map((cycle) => {
           const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
           const startDate = formatStartDate(cycle.startDate)
 
