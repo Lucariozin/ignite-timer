@@ -14,10 +14,6 @@ interface HistoryListProps {
 export const HistoryList = ({ historyList }: HistoryListProps) => {
   if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
 
-  const historyListOrderedByStartDate = historyList.sort((a, b) => a.startDate.getTime() + b.startDate.getTime())
-
-  console.log('historyListOrderedByStartDate', historyListOrderedByStartDate)
-
   const formatMinutesAmount = (minutesAmount: number) => {
     const formattedMinutesAmount = minutesAmount === 1 ? `${minutesAmount} minuto` : `${minutesAmount} minutos`
 
@@ -41,7 +37,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
 
       <HistoryListScrollContainer>
 
-        {historyListOrderedByStartDate.map((cycle) => {
+        {historyList.map((cycle) => {
           const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
           const startDate = formatStartDate(cycle.startDate)
 
