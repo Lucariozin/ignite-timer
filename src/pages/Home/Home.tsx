@@ -26,7 +26,9 @@ export const Home = () => {
   const taskName = watch('taskName')
   const minutesAmount = watch('minutesAmount')
 
-  const { currentCycle, secondsPassed, startNewCycle, interruptCurrentCycle } = useCycle()
+  const { currentCycle, historyList, secondsPassed, startNewCycle, interruptCurrentCycle } = useCycle()
+
+  console.log('HOME - HISTORY LIST', historyList)
 
   const minutes = Math.floor(secondsPassed / 60)
   const seconds = Math.floor(secondsPassed % 60)
