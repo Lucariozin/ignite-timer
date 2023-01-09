@@ -11,14 +11,22 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   max-width: 70rem;
   width: 100%;
-  max-height: 46.5rem;
-  height: 100%;
+  min-height: 46.5rem;
+  height: 70%;
   padding: 3rem;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.palette.gray[600]};
 
   ${({ theme }) => theme.breakpoints.down('md')} {
-    max-height: 100%;
+    height: 100%;
+    border-radius: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  @media (max-height: 740px) {
+    height: 100%;
     border-radius: 0;
     position: absolute;
     top: 0;
@@ -32,8 +40,7 @@ export const Wrapper = styled.div`
 
 export const TemplateContentContainer = styled.div`
   display: flex;
-  height: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: -2rem;
+  height: 90%;
 `
