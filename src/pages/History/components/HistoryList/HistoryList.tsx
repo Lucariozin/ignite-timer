@@ -29,6 +29,8 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
   console.log('HISTORY LIST COMPONENT', historyList)
   console.log('\n ---------------------------------------------------')
 
+  const sortedHistoryListByStartDate = historyList.sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
+
   return (
     <HistoryListContainer>
       <HistoryListHeader>
@@ -40,7 +42,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
 
       <HistoryListScrollContainer>
 
-        {historyList.map((cycle) => {
+        {sortedHistoryListByStartDate.map((cycle) => {
           const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
           const startDate = formatStartDate(cycle.startDate)
 
