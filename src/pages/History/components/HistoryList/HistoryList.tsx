@@ -26,9 +26,6 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
     return formattedDate
   }
 
-  console.log('HISTORY LIST COMPONENT', historyList)
-  console.log('\n ---------------------------------------------------')
-
   const sortedHistoryListByStartDate = historyList.sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
 
   return (

@@ -14,8 +14,6 @@ import {
 export const History = () => {
   const { historyList } = useCycle()
 
-  console.log('HISTORY - HISTORY LIST', historyList)
-
   const historyListIsEmpty = !historyList.length
 
   return (
