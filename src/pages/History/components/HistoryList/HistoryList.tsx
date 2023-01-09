@@ -6,40 +6,13 @@ import { Cycle } from '@contexts/CycleContext/types'
 import { CycleStatus } from '@components/CycleStatus'
 
 import { HistoryListContainer, HistoryListHeader, HistoryListScrollContainer, HistoryRow, Item } from './HistoryList.styles'
-import { useState } from 'react'
 
 interface HistoryListProps {
   historyList: Cycle[]
 }
 
 export const HistoryList = ({ historyList }: HistoryListProps) => {
-  // if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
-
-  const [newHistoryList, setNewHistoryList] = useState([
-    {
-      id: '1',
-      minutesAmount: 5,
-      startDate: new Date(),
-      taskName: 'Projeto 1',
-      finishDate: undefined,
-      interruptDate: undefined,
-    },
-    {
-      id: '2',
-      minutesAmount: 10,
-      startDate: new Date(new Date().getTime() - 1000),
-      taskName: 'Projeto 2',
-      finishDate: new Date(),
-      interruptDate: undefined,
-    },{
-      id: '3',
-      minutesAmount: 30,
-      startDate: new Date(new Date().getTime() - 4000),
-      taskName: 'Projeto 3',
-      finishDate: undefined,
-      interruptDate: new Date(),
-    },
-  ])
+  if (!historyList || typeof historyList === 'number' || typeof historyList === 'string') return null
 
   const formatMinutesAmount = (minutesAmount: number) => {
     const formattedMinutesAmount = minutesAmount === 1 ? `${minutesAmount} minuto` : `${minutesAmount} minutos`
@@ -53,6 +26,9 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
     return formattedDate
   }
 
+  console.log('HISTORY LIST COMPONENT', historyList)
+  console.log('\n ---------------------------------------------------')
+
   return (
     <HistoryListContainer>
       <HistoryListHeader>
@@ -64,7 +40,7 @@ export const HistoryList = ({ historyList }: HistoryListProps) => {
 
       <HistoryListScrollContainer>
 
-        {newHistoryList.map((cycle) => {
+        {historyList.map((cycle) => {
           const minutesAmount = formatMinutesAmount(cycle.minutesAmount)
           const startDate = formatStartDate(cycle.startDate)
 

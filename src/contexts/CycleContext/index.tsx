@@ -31,7 +31,7 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
   const [currentCycleIntervalID, setCurrentCycleIntervalID] = useState<NodeJS.Timer>()
 
   const startNewCycle = useCallback(({ taskName, minutesAmount }: StartNewCycleParams) => {
-    clearInterval(currentCycleIntervalID)
+    // clearInterval(currentCycleIntervalID)
 
     const id = String(Math.floor(new Date().getTime() * Math.random()))
 
@@ -42,35 +42,46 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
       startDate: new Date(),
     }
 
+    console.log('START NEW CYCLE', newCycle)
+    console.log('\n ---------------------------------------------------')
+
     cycleDispatch({
       type: 'START_NEW_CYCLE',
       payload: {
         newCycle,
       },
     })
-  }, [currentCycleIntervalID, cycleDispatch])
+  }, [cycleDispatch])
 
   const interruptCurrentCycle = useCallback(() => {
+    if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
+
+    console.log('INTERRUPT CURRENT CYCLE', currentCycle)
+    console.log('\n ---------------------------------------------------')
+
     cycleDispatch({
       type: 'INTERRUPT_CURRENT_CYCLE',
     })
 
-    clearInterval(currentCycleIntervalID)
+    // clearInterval(currentCycleIntervalID)
 
     reset()
-  }, [currentCycleIntervalID, cycleDispatch])
+  }, [currentCycle, cycleDispatch, reset])
 
   const finishCurrentCycle = useCallback(() => {
     if (!currentCycle || currentCycle?.finishDate || currentCycle?.interruptDate) return
+
+    console.log('FINISH CURRENT CYCLE', currentCycle)
+    console.log('\n ---------------------------------------------------')
 
     cycleDispatch({
       type: 'FINISH_CURRENT_CYCLE',
     })
 
-    clearInterval(currentCycleIntervalID)
+    // clearInterval(currentCycleIntervalID)
 
     reset()
-  }, [currentCycle, currentCycleIntervalID, cycleDispatch])
+  }, [currentCycle, cycleDispatch, reset])
 
   useEffect(() => {
     if (!currentCycle) return
@@ -78,6 +89,9 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     const currentCycleIsInTheHistoryList = historyList.find((cycle) => cycle.id === currentCycle.id)
 
     if (!currentCycleIsInTheHistoryList) {
+      console.log('ADD CURRENT CYCLE TO HISTORY LIST', currentCycle)
+      console.log('\n ---------------------------------------------------')
+
       cycleDispatch({
         type: 'ADD_CURRENT_CYCLE_TO_HISTORY_LIST',
       })
@@ -85,9 +99,17 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
       return
     }
 
+    if (currentCycleIsInTheHistoryList.finishDate || currentCycleIsInTheHistoryList.interruptDate) return
+
     const currentCyclesAreEqual = compareCycles(currentCycle, currentCycleIsInTheHistoryList)
 
+    console.log('CURRENT CYCLES ARE EQUAL', currentCyclesAreEqual)
+    console.log('\n ---------------------------------------------------')
+
     if (currentCyclesAreEqual) return
+
+    console.log('UPDATE CURRENT CYCLE ON HISTORY LIST', currentCycle)
+    console.log('\n ---------------------------------------------------')
 
     cycleDispatch({
       type: 'UPDATE_CURRENT_CYCLE_ON_HISTORY_LIST',
@@ -106,10 +128,16 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
       const minutesPassed = Math.floor(newSecondsPassed / 60)
 
       if (minutesPassed > currentCycle.minutesAmount) {
+        console.log('FINISH CURRENT CYCLE', currentCycle)
+        console.log('\n ---------------------------------------------------')
+
         finishCurrentCycle()
 
         return
       }
+
+      console.log('SET SECONDS PASSED', newSecondsPassed)
+      console.log('\n ---------------------------------------------------')
 
       cycleDispatch({
         type: 'SET_SECONDS_PASSED',
@@ -122,12 +150,15 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
     setCurrentCycleIntervalID(intervalId)
 
     return () => clearInterval(intervalId)
-  }, [currentCycle, cycleDispatch])
+  }, [currentCycle, cycleDispatch, finishCurrentCycle])
 
   useEffect(() => {
     const newState = recoverCycleContextStateFromLocalStorage()
 
     if (!newState) return
+
+    console.log('UPDATE ALL STATE', newState)
+    console.log('\n ---------------------------------------------------')
 
     cycleDispatch({
       type: 'UPDATE_ALL_STATE',
@@ -146,6 +177,9 @@ export const CycleContextProvider = ({ children }: CycleContextProviderProps) =>
 
   useEffect(() => {
     if (!historyList.length || !currentCycle) return
+
+    console.log('PERSIST CYCLE CONTEXT STATE', state)
+    console.log('\n ---------------------------------------------------')
 
     persistCycleContextStateInLocalStorage(state)
   }, [state])
