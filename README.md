@@ -7,3 +7,10 @@
 <img src="./public/readme-images/home.png" />
 <img src="./public/readme-images/home-task-initialized.png" />
 <img src="./public/readme-images/history.png" />
+
+## Versão mobile:
+
+<div>
+  <img width="412" src="./public/readme-images/home-mobile.png" />
+  <img width="412" src="./public/readme-images/home-task-initialized-mobile.png" />
+</div>
