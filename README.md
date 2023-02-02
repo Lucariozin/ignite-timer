@@ -11,6 +11,6 @@
 ## Versão mobile:
 
 <div>
-  <img width="412" src="./public/readme-images/home-mobile.png" />
-  <img width="412" src="./public/readme-images/home-task-initialized-mobile.png" />
+  <img width="412" height="730" src="./public/readme-images/home-mobile.png" />
+  <img width="412" height="730" src="./public/readme-images/home-task-initialized-mobile.png" />
 </div>
