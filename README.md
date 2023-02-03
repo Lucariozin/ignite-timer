@@ -14,3 +14,8 @@
   <img width="412" height="730" src="./public/readme-images/home-mobile.png" />
   <img width="412" height="730" src="./public/readme-images/home-task-initialized-mobile.png" />
 </div>
+
+<div>
+  <img width="412" height="730" src="./public/readme-images/history-mobile-1.png" />
+  <img width="412" height="730" src="./public/readme-images/history-mobile-2.png" />
+</div>
