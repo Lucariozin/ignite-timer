@@ -4,11 +4,11 @@
 
 ## Versão desktop:
 
-### Home page:
+### Home page
 <img src="./public/readme-images/home.png" />
 <img src="./public/readme-images/home-task-initialized.png" />
 
-### History page:
+### History page
 <img src="./public/readme-images/history.png" />
 
 ## Versão mobile:
