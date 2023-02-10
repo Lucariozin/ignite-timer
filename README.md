@@ -19,6 +19,7 @@
   <img width="412" height="730" src="./public/readme-images/home-task-initialized-mobile.png" />
 </div>
 
+### History page
 <div>
   <img width="412" height="730" src="./public/readme-images/history-mobile-1.png" />
   <img width="412" height="730" src="./public/readme-images/history-mobile-2.png" />
